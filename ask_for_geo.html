@@ -1,0 +1,32 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<p>
+    Your location is <span id="latitude">0.00</span>° latitude by
+    <span id="longitude">0.00</span>° longitude.
+</p>
+<button id="get-location">Get My Location</button>
+
+<script>
+    let button = document.getElementById("get-location");
+    let latText = document.getElementById("latitude");
+    let longText = document.getElementById("longitude");
+
+    button.addEventListener("click", () => {
+        navigator.geolocation.getCurrentPosition((position) => {
+            let lat = position.coords.latitude;
+            let long = position.coords.longitude;
+
+            latText.innerText = lat.toFixed(2);
+            longText.innerText = long.toFixed(2);
+        });
+    });
+</script>
+</body>
+</html>

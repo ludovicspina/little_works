@@ -1,0 +1,68 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Calcul rayon geographique</title>
+</head>
+<body>
+<div> Calcul entre Paris et -></div>
+
+<div>
+    <label for="latTest">Latitude</label><input id="latTest">
+    <br>
+    <label for="lonTest">Longitude</label><input id="lonTest">
+    <br>
+    <label for="testKm">KM vérif</label><input id="testKm">
+    <br>
+    <button onclick="calc()">Submit</button>
+</div>
+
+<div id="result"></div>
+<div id="resultTest"></div>
+
+<div>Distance</div>
+<div id="distanceCalc"></div>
+</body>
+
+<script>
+    // Paris
+    const latSearch = 48.8566101;
+    const lonSearch = 2.3514992;
+
+    const R = 6371;
+    const pi = 3.14;
+
+    function calc() {
+        const latTest = document.getElementById('latTest').value;
+        const lonTest = document.getElementById('lonTest').value;
+        const km = document.getElementById('testKm').value;
+
+        const latFrom = latSearch * (pi / 180)
+        const latTo = latTest * (pi / 180)
+
+        const latDiff = (latSearch - latTest) * (pi / 180);
+        const lonDiff = (lonSearch - lonTest) * (pi / 180);
+        const distance = 2 * R * Math.sin(Math.sqrt(Math.sin(latDiff / 2) * Math.sin(latDiff / 2) + Math.cos(latFrom) * Math.cos(latTo) * Math.sin(lonDiff / 2) * Math.sin(lonDiff / 2)))
+
+        document.getElementById('result').textContent = distance.toString();
+        if (distance <= km) {
+            document.getElementById('resultTest').textContent = "<=";
+        } else {
+            document.getElementById('resultTest').textContent = ">";
+        }
+
+        const latSoust = latSearch - latTest;
+        const lonSoust = lonSearch - lonTest;
+
+        document.getElementById('distanceCalc').textContent = latSoust.toString() + " X " + lonSoust.toString()
+
+
+
+    }
+
+
+</script>
+
+</html>
